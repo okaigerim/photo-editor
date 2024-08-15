@@ -83,6 +83,39 @@ const App = () => {
     unit: 'px'
   });
 
+  const [invert, setInvert] = useState({
+    name: 'Invert',
+    property: 'invert',
+    value: 0,
+    range: {
+      min: 0,
+      max: 100
+    },
+    unit: '%'
+  });
+  
+  const [opacity, setOpacity] = useState({
+    name: 'Opacity',
+    property: 'opacity',
+    value: 100,
+    range: {
+      min: 0,
+      max: 100
+    },
+    unit: '%'
+  });
+  
+  const [dropShadow, setDropShadow] = useState({
+    name: 'Drop Shadow',
+    property: 'drop-shadow',
+    value: 0,
+    range: {
+      min: 0,
+      max: 20
+    },
+    unit: 'px'
+  });  
+
   const [background, setBackground] = useState('https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014_960_720.jpg');
 
   const handleDownload = () => {
@@ -125,7 +158,10 @@ const App = () => {
                                 ${grayscale.property}(${grayscale.value}${grayscale.unit})
                                 ${sepia.property}(${sepia.value}${sepia.unit})
                                 ${hueRotate.property}(${hueRotate.value}${hueRotate.unit})
-                                `}}
+                                ${invert.property}(${invert.value}${invert.unit})
+                                ${opacity.property}(${opacity.value}${opacity.unit})
+                                ${dropShadow.property}(${dropShadow.value}${dropShadow.unit} ${dropShadow.value}${dropShadow.unit} ${dropShadow.value}${dropShadow.unit} #000)
+                      `}}
               />
           </div>
         </div>
@@ -185,7 +221,25 @@ const App = () => {
               onChange={(e) => {setSepia({...sepia, value: Number(e.target.value)})}} 
             />
           </div>
-          <div className="mode hue">
+          <div className="mode">
+            <span>Invert</span>
+            <input 
+              type="range" 
+              max={invert.range.max} 
+              min={invert.range.min}
+              value={invert.value}
+              onChange={(e) => {setInvert({...invert, value: Number(e.target.value)})}} 
+            />
+            <span>Opacity</span>
+            <input 
+              type="range" 
+              max={opacity.range.max} 
+              min={opacity.range.min}
+              value={opacity.value}
+              onChange={(e) => {setOpacity({...opacity, value: Number(e.target.value)})}} 
+            />
+          </div>
+          <div className="mode">
             <span>Hue Rotate</span>
             <input 
               type="range" 
@@ -193,6 +247,14 @@ const App = () => {
               min={hueRotate.range.min}
               value={hueRotate.value}
               onChange={(e) => {setHueRotate({...hueRotate, value: Number(e.target.value)})}} 
+            />
+            <span>Drop Shadow</span>
+            <input 
+              type="range" 
+              max={dropShadow.range.max} 
+              min={dropShadow.range.min}
+              value={dropShadow.value}
+              onChange={(e) => {setDropShadow({...dropShadow, value: Number(e.target.value)})}} 
             />
           </div>
         </div>
