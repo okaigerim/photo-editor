@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { Navbar } from './Navbar';
+import React, { useState, useRef } from 'react';
 
-import img from './kimono.avif';
+import { Navbar } from './Navbar';
 import { Announcement } from './Announcement';
 
 const App = () => {
+  const imageRef = useRef(null);
+
   const [brightness, setBrightness] = useState({
     name: 'Brightness',
     property: 'brightness',
@@ -81,16 +82,41 @@ const App = () => {
     },
     unit: 'px'
   });
-//trigger
+
+  const [background, setBackground] = useState('https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014_960_720.jpg');
+
+  const handleDownload = () => {
+    const img = imageRef.current;
+
+    if (img) {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      const ctx = canvas.getContext('2d');
+
+      ctx.filter = img.style.filter;
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+      canvas.toBlob((blob) => {
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'edited-image.png';
+        link.click();
+      });
+    }
+  };
+
   return (
     <div>
       <Announcement />
-      <Navbar />
+      <Navbar setBackground={setBackground} />
       <div className='wrapper'>
         <div className='image-wrapper'>
           <div className='image'>
             <img 
-              src={img} 
+              ref={imageRef}
+              src={background} 
+              crossOrigin="anonymous"
               alt="img" 
               style={{filter: `${brightness.property}(${brightness.value}${brightness.unit}) 
                                 ${blur.property}(${blur.value}${blur.unit})
@@ -103,6 +129,7 @@ const App = () => {
               />
           </div>
         </div>
+
         <div className='options'>
           <div className="mode">
             <span>Brightness</span>
@@ -170,6 +197,10 @@ const App = () => {
           </div>
         </div>
       </div>
+      
+      <button className="download-btn" onClick={handleDownload}>
+        Download Edited Image
+      </button>
     </div>
   );
 }
