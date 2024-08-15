@@ -1,6 +1,6 @@
 # Photo Editor
 
-A simple and modern photo editor built with React that allows users to apply various filter effects to an image and download the edited image. The project supports common image adjustments like brightness, contrast, saturation, grayscale, sepia, hue rotation, and blur.
+A simple and modern photo editor built with React that allows users to apply various filter effects to an image and download the edited image. The project supports common image adjustments like brightness, contrast, saturation, and many more.
 
 ## Features
 
@@ -18,14 +18,13 @@ A simple and modern photo editor built with React that allows users to apply var
 - **React**: A JavaScript library for building user interfaces.
 - **JavaScript**: Programming language used for the logic of the application.
 - **HTML5 & CSS3**: Used for structuring and styling the application.
-- **Pixabay API**: For loading sample images with CORS support.
 
 ## Installation
 
 1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/your-username/photo-editor.git
+    git clone https://github.com/okaigerim/photo-editor.git
     cd photo-editor
     ```
 
